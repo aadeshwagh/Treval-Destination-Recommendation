@@ -1,8 +1,11 @@
-package csv.parser.load;
+package com.wt.traveldestinationrecommendation.csv.parser.load;
 
-import csv.parser.CSVSchema;
+
+import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
+
+import java.io.File;
 
 public interface CSVLoader {
-    CSVSchema LoadCSV(String name);
+    CSVSchema LoadCSV(File file);
 
 }

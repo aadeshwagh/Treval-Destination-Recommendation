@@ -1,7 +1,7 @@
-package csv.parser.write;
+package com.wt.traveldestinationrecommendation.csv.parser.write;
 
-import csv.parser.CSVSchema;
-import csv.parser.exception.NoSuchFileException;
+import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
+import com.wt.traveldestinationrecommendation.csv.parser.exception.NoSuchFileException;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,9 +12,9 @@ import java.util.*;
 public class CSVWrite implements CSVWriteOperations{
     private final CSVSchema csvSchema;
     private final String path;
-    public CSVWrite (CSVSchema csvSchema,String path){
+    public CSVWrite (CSVSchema csvSchema,File file){
         this.csvSchema = csvSchema;
-        this.path =path;
+        this.path =file.getPath();
     }
 
     @Override

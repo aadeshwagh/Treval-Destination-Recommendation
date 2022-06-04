@@ -1,4 +1,4 @@
-package filtering;
+package com.wt.traveldestinationrecommendation.filtering;
 
 public class Item {
     private String columnName;

@@ -1,4 +1,4 @@
-package csv.parser.write;
+package com.wt.traveldestinationrecommendation.csv.parser.write;
 
 import java.util.List;
 import java.util.Map;

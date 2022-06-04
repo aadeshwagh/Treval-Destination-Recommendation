@@ -1,7 +1,8 @@
-package csv.parser.read;
+package com.wt.traveldestinationrecommendation.csv.parser.read;
 
-import csv.parser.CSVSchema;
-import csv.parser.exception.NoSuchColumnException;
+import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
+import com.wt.traveldestinationrecommendation.csv.parser.exception.NoSuchColumnException;
+
 import java.util.ArrayList;
 import java.util.List;
 

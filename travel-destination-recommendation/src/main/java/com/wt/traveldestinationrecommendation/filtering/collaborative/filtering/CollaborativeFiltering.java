@@ -1,10 +1,11 @@
-package filtering.collaborative.filtering;
+package com.wt.traveldestinationrecommendation.filtering.collaborative.filtering;
 
-import csv.parser.CSVSchema;
-import csv.parser.read.CSVReader;
-import csv.parser.read.CSVReaderImp;
-import filtering.Item;
-import filtering.RatingMatrix;
+
+import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
+import com.wt.traveldestinationrecommendation.csv.parser.read.CSVReader;
+import com.wt.traveldestinationrecommendation.csv.parser.read.CSVReaderImp;
+import com.wt.traveldestinationrecommendation.filtering.Item;
+import com.wt.traveldestinationrecommendation.filtering.RatingMatrix;
 
 import java.util.ArrayList;
 import java.util.HashMap;

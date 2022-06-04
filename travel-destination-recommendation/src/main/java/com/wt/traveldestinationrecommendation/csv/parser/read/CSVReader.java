@@ -1,4 +1,4 @@
-package csv.parser.read;
+package com.wt.traveldestinationrecommendation.csv.parser.read;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package filtering;
+package com.wt.traveldestinationrecommendation.filtering;
 
 import java.util.List;
 import java.util.Map;

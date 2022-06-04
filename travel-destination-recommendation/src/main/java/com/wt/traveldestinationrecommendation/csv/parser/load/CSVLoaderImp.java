@@ -1,7 +1,7 @@
-package csv.parser.load;
+package com.wt.traveldestinationrecommendation.csv.parser.load;
 
-import csv.parser.CSVSchema;
-import csv.parser.exception.NoSuchFileException;
+import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
+import com.wt.traveldestinationrecommendation.csv.parser.exception.NoSuchFileException;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
@@ -12,10 +12,9 @@ import java.util.List;
 
 public class CSVLoaderImp implements CSVLoader{
     @Override
-    public CSVSchema LoadCSV(String path) {
-        File file = new File(path);
+    public CSVSchema LoadCSV(File file) {
         if(!file.exists()){
-            throw new NoSuchFileException("File with path "+path+"does not exists");
+            throw new NoSuchFileException("File with path "+file.getName()+"does not exists");
         }
         String extension = FilenameUtils.getExtension(file.getName());
         if(!extension.equals("csv")){
