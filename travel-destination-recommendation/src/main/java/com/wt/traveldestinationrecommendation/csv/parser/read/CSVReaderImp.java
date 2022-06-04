@@ -14,7 +14,7 @@ public class CSVReaderImp implements CSVReader{
 
     @Override
     public List<List<Object>> getRows() {
-        return csv.getData().subList(1,csv.getRowSize());
+        return csv.getData().subList(1,csv.getData().size());
     }
 
     @Override
