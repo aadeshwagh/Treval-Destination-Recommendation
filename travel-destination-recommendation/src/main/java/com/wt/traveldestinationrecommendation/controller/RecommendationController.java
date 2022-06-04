@@ -11,10 +11,7 @@ import com.wt.traveldestinationrecommendation.filtering.RatingMatrix;
 import com.wt.traveldestinationrecommendation.filtering.Recommendation;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.CollaborativeFiltering;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.UserRecommendation;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.util.List;
@@ -40,7 +37,6 @@ public class RecommendationController {
         File file = new File(path);
         CSVSchema schema = loader.LoadCSV(file);
         this.reader = new CSVReaderImp(schema);
-        this.writer = new CSVWrite(schema,file);
         //System.out.println(reader.getColumn("User"));
         if(!reader.getColumn("User").contains(id)){
             throw new Exception("No such user exists");
@@ -58,6 +54,14 @@ public class RecommendationController {
          return obj.getName().toString();
         }).toList();
 
+    }
+    @GetMapping("/getAllCat")
+    public List<String> getAllCategories(){
+        File file = new File(path);
+        CSVSchema schema = loader.LoadCSV(file);
+        this.reader = new CSVReaderImp(schema);
+
+        return reader.getAllColumnNames().subList(1,reader.getAllColumnNames().size());
     }
 
     @ExceptionHandler(Exception.class)
