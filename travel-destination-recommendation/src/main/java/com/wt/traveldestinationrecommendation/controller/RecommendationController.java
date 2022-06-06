@@ -14,13 +14,12 @@ import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 public class RecommendationController {
@@ -55,15 +54,37 @@ public class RecommendationController {
         String userId = formdata.getFirst("userId");
         String password = formdata.getFirst("password");
 
-        List<String> recomCat = getUserRecommendations(userId.trim());
+        List<String> recomCat = getUserRecommendations(userId);
         model.addAttribute("categories",recomCat);
         model.addAttribute("userId",userId);
         return "recom";
     }
-    @GetMapping("/openRateWindow")
-    public String rate(){
+    @PostMapping ("/updateRating")
+    public String rate(@RequestBody MultiValueMap<String, String> formdata,Model model){
+        File file = new File(path);
+        CSVSchema schema = loader.LoadCSV(file);
+        this.writer = new CSVWrite(schema,file);
+        this.reader = new CSVReaderImp(schema);
+        Map<String,Object> map = new HashMap<>();
+        String userId = formdata.getFirst("userId");
+        String des = formdata.getFirst("cat");
+        String cat = "";
+        for(String str : utility.categories.keySet()){
+            if(utility.categories.get(str).equals(des)){
+                cat = str;
+            }
+        }
+        map.put(cat,formdata.getFirst("rating"));
+        int index = reader.getColumn("User").indexOf(userId)+1;
 
-        return "rate";
+        writer.updateRow(index,map);
+
+        MultiValueMap<String,String> map1 = new LinkedMultiValueMap<>();
+        List<String> list =new ArrayList<>() ;
+        list.add(userId);
+        map1.put("userId",list);
+        map1.put("password",list);
+        return login(map1,model);
     }
 
     public List<String> getUserRecommendations(String id) {

@@ -42,11 +42,48 @@
             <img th:src ="@{'/images/'+${cat}+'.jpeg'}" class="card-img-top" height="140"  alt="..."/>
             <div class="card-body">
                 <h5 class="card-title" th:text = "${cat}">Card title</h5>
-                <a th:href="@{/openRateWindow}" class="btn btn-primary">rate</a>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Rate
+                </button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" th:attr="action = @{/updateRating}">
+                                    <input hidden name = "userId" th:value ="${userId}"/>
+                                    <input hidden name = "cat" th:value ="${cat}"/>
+                                    <div class="mb-3">
+                                        <label for="recipient-name" class="col-form-label" >Rating</label>
+                                        <input type="number" min="1" max="5"  step=".01" name="rating" class="form-control" id="recipient-name">
+                                    </div>
+                                    <div class="form-group form-button">
+                                        <input type="submit" name="submit" id="signup" class="btn btn-primary"  value="Submit"/>
+
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+
+
+
 
 </body>
 </html>

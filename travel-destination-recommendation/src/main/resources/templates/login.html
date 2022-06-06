@@ -10,6 +10,20 @@
 
     <title>Document</title>
 </head>
+<script>
+    function validateform(){
+    var name= document.myform.userId.value;
+    var password=document.myform.password.value;
+
+    if (name==null || name==""){
+      alert("Name can't be blank");
+      return false;
+    }else if(name != password){
+      alert("Password is incorrect");
+      return false;
+      }
+    }
+</script>
 <body>
 <div class="signin">
     <div class="back-img">
@@ -23,7 +37,7 @@
     </div><!--/.back-img-->
     <div class="form-section">
 
-        <form  method = "POST"  th:attr="action = @{/getRecom}">
+        <form  name="myform"  method = "POST"  th:attr="action = @{/getRecom}" onsubmit="return validateform()">
             <!--Email-->
             <div class="form-group">
                 <label for="sample3">User ID</label>
