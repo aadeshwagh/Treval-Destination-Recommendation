@@ -1,5 +1,6 @@
 package com.wt.traveldestinationrecommendation.controller;
 
+import com.wt.traveldestinationrecommendation.Utility;
 import com.wt.traveldestinationrecommendation.csv.parser.CSVSchema;
 import com.wt.traveldestinationrecommendation.csv.parser.load.CSVLoader;
 import com.wt.traveldestinationrecommendation.csv.parser.load.CSVLoaderImp;
@@ -8,16 +9,19 @@ import com.wt.traveldestinationrecommendation.csv.parser.read.CSVReaderImp;
 import com.wt.traveldestinationrecommendation.csv.parser.write.CSVWrite;
 import com.wt.traveldestinationrecommendation.filtering.Item;
 import com.wt.traveldestinationrecommendation.filtering.RatingMatrix;
-import com.wt.traveldestinationrecommendation.filtering.Recommendation;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.CollaborativeFiltering;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.UserRecommendation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class RecommendationController {
+
     //get recommendations for user
     //get all categories
     //add user rating
@@ -26,8 +30,13 @@ public class RecommendationController {
     private CSVReader reader;
     private final CSVLoader loader;
     private CSVWrite writer;
+
+    @Autowired
+    Utility utility;
     RecommendationController(){
         this.loader =new CSVLoaderImp();
+
+
 
 
     }
@@ -51,7 +60,7 @@ public class RecommendationController {
         List<Item> items = filtering.similarityMatrix(avgM, id);
         UserRecommendation recommendation =new UserRecommendation();
         return recommendation.recommendations(items,ratingMatrix,id).stream().map((obj)->{
-         return obj.getName().toString();
+         return utility.categories.get(obj.getName().toString());
         }).toList();
 
     }
@@ -63,6 +72,7 @@ public class RecommendationController {
 
         return reader.getAllColumnNames().subList(1,reader.getAllColumnNames().size());
     }
+
 
     @ExceptionHandler(Exception.class)
     public String handleException(Exception e){
