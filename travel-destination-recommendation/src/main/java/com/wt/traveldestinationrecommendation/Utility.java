@@ -19,10 +19,10 @@ public class Utility {
         categories.put("Category 7","malls");
         categories.put("Category 8","zoo");
         categories.put("Category 9","restaurants");
-        categories.put("Category 10","pubs/bars");
+        categories.put("Category 10","pubs");
         categories.put("Category 11","local services");
-        categories.put("Category 12","burger/pizza shops");
-        categories.put("Category 13","hotels/other lodgings");
+        categories.put("Category 12","fast-food shops");
+        categories.put("Category 13","lodgings");
         categories.put("Category 14","juice bars");
         categories.put("Category 15","art galleries");
         categories.put("Category 16","dance clubs");

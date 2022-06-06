@@ -12,6 +12,9 @@ import com.wt.traveldestinationrecommendation.filtering.RatingMatrix;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.CollaborativeFiltering;
 import com.wt.traveldestinationrecommendation.filtering.collaborative.filtering.UserRecommendation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -19,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 public class RecommendationController {
 
     //get recommendations for user
@@ -36,21 +39,42 @@ public class RecommendationController {
     RecommendationController(){
         this.loader =new CSVLoaderImp();
 
+    }
+    @GetMapping("/")
+    public String home(){
 
+        return "index";
+    }
+    @GetMapping("/getLoginPage")
+    public String lpage(){
 
+        return "login";
+    }
+    @PostMapping("/getRecom")
+    public String login(@RequestBody MultiValueMap<String, String> formdata, Model model){
+        String userId = formdata.getFirst("userId");
+        String password = formdata.getFirst("password");
 
+        List<String> recomCat = getUserRecommendations(userId.trim());
+        model.addAttribute("categories",recomCat);
+        model.addAttribute("userId",userId);
+        return "recom";
+    }
+    @GetMapping("/openRateWindow")
+    public String rate(){
+
+        return "rate";
     }
 
-    @GetMapping("/getRecom/{id}")
-    public List<String> getUserRecommendations(@PathVariable String id) throws Exception {
+    public List<String> getUserRecommendations(String id) {
         File file = new File(path);
         CSVSchema schema = loader.LoadCSV(file);
         this.reader = new CSVReaderImp(schema);
         //System.out.println(reader.getColumn("User"));
         if(!reader.getColumn("User").contains(id)){
-            throw new Exception("No such user exists");
-        }
+            System.out.println("no");
 
+        }
         CollaborativeFiltering filtering = new CollaborativeFiltering();
 
         RatingMatrix ratingMatrix = filtering.createRatingMatrix(schema);
